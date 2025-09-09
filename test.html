@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antenna & Radiation Formula Reference</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js">
+    </script>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 20px;
+            line-height: 1.5;
+            color: #000;
+            background: white;
+            font-size: 14px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            color: #000;
+        }
+        
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            color: #000;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-left: 5px solid #2196F3;
+        }
+        
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .formula-table th {
+            background-color: #2196F3;
+            color: white;
+            border: 1px solid #1976D2;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .formula-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            vertical-align: top;
+            background-color: white;
+        }
+        
+        .formula-table tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        
+        .formula-table tr:hover td {
+            background-color: #f0f8ff;
+        }
+        
+        .concept-col {
+            width: 28%;
+            font-weight: bold;
+            color: #1976D2;
+        }
+        
+        .formula-col {
+            width: 45%;
+            font-family: 'Courier New', monospace;
+            background-color: #fafafa;
+        }
+        
+        .note-col {
+            width: 27%;
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .examples-section {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .memory-tips {
+            background-color: #e8f5e8;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: #1976D2;
+        }
+        
+        .math-display {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        @media print {
+            .print-btn { display: none; }
+            body { margin: 0; font-size: 12px; }
+            .formula-table { font-size: 11px; }
+            .examples-section, .memory-tips { 
+                border: 1px solid #ccc; 
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Print/Save as PDF</button>
+    
+    <div class="header">
+        <h1>Antenna & Radiation Formula Reference</h1>
+        <p style="font-size: 16px; font-style: italic; margin: 10px 0;">Compact Formula & Concept Table</p>
+    </div>
+
+    <h2>Fundamental Concepts & Power Relations</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Instantaneous Poynting Vector</td>
+                <td class="math-display">$$\vec{S}(t) = \vec{E}(t) \times \vec{H}(t)$$</td>
+                <td>W/m², instantaneous power flux density vector</td>
+            </tr>
+            <tr>
+                <td>Time-Average Power Density</td>
+                <td class="math-display">$$W_{av} = \frac{1}{2}\text{Re}\{\vec{E} \times \vec{H}^*\}$$</td>
+                <td>W/m² (using complex phasors)</td>
+            </tr>
+            <tr>
+                <td>For Plane Wave</td>
+                <td class="math-display">$$W = \frac{|E|^2}{2\eta_0}$$ where $\eta_0 = 377\,\Omega$</td>
+                <td>Free space wave impedance</td>
+            </tr>
+            <tr>
+                <td>Surface Element (Sphere)</td>
+                <td class="math-display">$$d\vec{S} = r^2 \sin\theta \, d\theta \, d\phi \, \hat{a}_r$$</td>
+                <td>m² (vector points radially outward)</td>
+            </tr>
+            <tr>
+                <td>Solid Angle Element</td>
+                <td class="math-display">$$d\Omega = \sin\theta \, d\theta \, d\phi$$</td>
+                <td>steradian (sr)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Radiation Patterns & Directivity</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Radiation Intensity</td>
+                <td class="math-display">$$U(\theta,\phi) = r^2 W(\theta,\phi)$$</td>
+                <td>W/sr — power per unit solid angle</td>
+            </tr>
+            <tr>
+                <td>Total Radiated Power</td>
+                <td class="math-display">$$P_{rad} = \iint_{4\pi} W \, dS = \iint_{4\pi} U \, d\Omega$$</td>
+                <td>W; integrate $\theta \in [0,\pi]$, $\phi \in [0,2\pi]$</td>
+            </tr>
+            <tr>
+                <td>Normalized Power Pattern</td>
+                <td class="math-display">$$P_n(\theta,\phi) = \frac{U(\theta,\phi)}{U_{max}}$$</td>
+                <td>Dimensionless; $\Omega_A = \int_{4\pi} P_n \, d\Omega$</td>
+            </tr>
+            <tr>
+                <td>Beam Solid Angle</td>
+                <td class="math-display">$$\Omega_A = \int_{4\pi} \frac{U}{U_{max}} \, d\Omega = \frac{P_{rad}}{U_{max}}$$</td>
+                <td>steradian (sr)</td>
+            </tr>
+            <tr>
+                <td>Directivity (Linear)</td>
+                <td class="math-display">$$D_0 = \frac{4\pi U_{max}}{P_{rad}} = \frac{4\pi}{\Omega_A}$$</td>
+                <td>unitless</td>
+            </tr>
+            <tr>
+                <td>Directivity (dB)</td>
+                <td class="math-display">$$D_0(\text{dB}) = 10\log_{10} D_0$$</td>
+                <td>referenced to isotropic (dBi)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Beamwidth Definitions</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Half-Power (-3 dB) Condition</td>
+                <td class="math-display">$$U(\theta_H) = \frac{U_{max}}{2}$$</td>
+                <td>Solve for $\theta_H$ in chosen plane</td>
+            </tr>
+            <tr>
+                <td>Half-Power Beamwidth (HPBW)</td>
+                <td class="math-display">$$\text{HPBW} = \theta_2 - \theta_1$$</td>
+                <td>Angular separation between half-power points</td>
+            </tr>
+            <tr>
+                <td>First Null Beamwidth (FNBW)</td>
+                <td>Angular separation between first nulls ($U=0$)</td>
+                <td>degrees, in main-lobe plane</td>
+            </tr>
+            <tr>
+                <td>Approximate Directivity from Beamwidths</td>
+                <td class="math-display">$$D_0 \approx \frac{4\pi}{\theta_{HP} \phi_{HP}}$$ (radians)<br><br>$$D_0 \approx \frac{41253}{\text{HPBW}_{az}(\deg) \cdot \text{HPBW}_{el}(\deg)}$$</td>
+                <td>Useful approximation for main lobe</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Antenna Parameters & Efficiency</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Gain</td>
+                <td class="math-display">$$G = \eta D_0$$ or $$G_{\text{dB}} = 10\log_{10} G$$</td>
+                <td>$\eta$ = radiation efficiency (0–1)</td>
+            </tr>
+            <tr>
+                <td>Antenna Efficiency</td>
+                <td class="math-display">$$\eta = \frac{P_{rad}}{P_{in}}$$</td>
+                <td>fraction radiated vs input</td>
+            </tr>
+            <tr>
+                <td>Antenna Input Impedance</td>
+                <td class="math-display">$$Z_{ant} = (R_r + R_L) + jX_A$$</td>
+                <td>$R_r$ radiation resistance, $R_L$ loss resistance, $X_A$ reactance</td>
+            </tr>
+            <tr>
+                <td>Powers in Equivalent Circuit</td>
+                <td class="math-display">$$P_{rad} = \frac{1}{2}I^2R_r$$ $$P_{loss} = \frac{1}{2}I^2R_L$$</td>
+                <td>I = antenna current (RMS)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Source & Matching Relations</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>With Source $V_g, Z_g = R_g + jX_g$ — Current</td>
+                <td class="math-display">$$I_g = \frac{V_g}{(R_g + R_r + R_L) + j(X_g + X_A)}$$</td>
+                <td>Ohm's law</td>
+            </tr>
+            <tr>
+                <td>With Source — Radiated Power</td>
+                <td class="math-display">$$P_{rad} = \frac{1}{2} \frac{V_g^2 R_r}{(R_g + R_r + R_L)^2 + (X_g + X_A)^2}$$</td>
+                <td>Analogous forms for $P_{loss}$, $P_g$ by replacing numerator with $R_L$ or $R_g$</td>
+            </tr>
+            <tr>
+                <td>Conjugate Matching Conditions</td>
+                <td class="math-display">$$X_g = -X_A \text{ and } R_g = R_r + R_L$$</td>
+                <td>For maximum power transfer</td>
+            </tr>
+            <tr>
+                <td>Fraction of Generator Power Radiated</td>
+                <td class="math-display">$$\frac{P_{rad}}{P_{total}} = \frac{R_r}{R_g + R_r + R_L}$$</td>
+                <td>Useful when comparing losses & design choices</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Transmission & Reception</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Aperture / Effective Area</td>
+                <td class="math-display">$$A_e = \frac{\lambda^2}{4\pi} G$$</td>
+                <td>m² — how much power a receiving antenna captures from plane wave</td>
+            </tr>
+            <tr>
+                <td>Friis Transmission (Far Field)</td>
+                <td class="math-display">$$P_r = P_t G_t G_r \left(\frac{\lambda}{4\pi R}\right)^2$$</td>
+                <td>Free-space power transfer (use matched polarization)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Common Conversions & Plotting Conventions</h2>
+    <table class="formula-table">
+        <thead>
+            <tr>
+                <th class="concept-col">Concept</th>
+                <th class="formula-col">Formula(s)</th>
+                <th class="note-col">Notes / Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Typical Conversion</td>
+                <td class="math-display">1 sr = steradian<br>$4\pi$ sr = full sphere</td>
+                <td>Keep units consistent (rad vs deg)</td>
+            </tr>
+            <tr>
+                <td>Usual Plotting Planes</td>
+                <td>E-plane: contains $\vec{E}$ and boresight<br>H-plane: contains $\vec{H}$ and boresight</td>
+                <td>Measure HPBW & pattern cuts in these planes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="examples-section">
+        <h2>Quick Solved Examples (Useful for Exams)</h2>
+        
+        <h3>Example 1: $U(\theta) = A_0 \sin\theta$</h3>
+        <div class="math-display">
+            $$P_{rad} = \frac{\pi}{2}A_0, \quad U_{max} = A_0, \quad D_0 = \frac{4\pi A_0}{\frac{\pi}{2}A_0} = \frac{4}{\pi} \approx 1.273 \text{ (= 1.05 dBi)}$$
+        </div>
+        <p><strong>HPBW:</strong> Half-power when $\sin\theta = 1/2 \Rightarrow \theta = 30°, 150° \Rightarrow$ HPBW = 120°</p>
+        <p><strong>FNBW:</strong> First nulls at 0° and 180° → FNBW = 180°</p>
+        
+        <h3>Example 2: $U(\theta) = A_0 \sin^2\theta$</h3>
+        <div class="math-display">
+            $$P_{rad} = \frac{8\pi}{3}A_0, \quad D_0 = \frac{4\pi A_0}{(8\pi/3)A_0} = \frac{3}{2} = 1.5 \text{ (1.76 dBi)}$$
+        </div>
+        
+        <h3>Example 3: $U(\theta) = A_0 \sin^3\theta$</h3>
+        <div class="math-display">
+            $$P_{rad} = \frac{3\pi^2}{4}A_0, \quad D_0 = \frac{4\pi}{3\pi^2/4} = \frac{16}{3\pi} \approx 1.698 \text{ (2.30 dBi)}$$
+        </div>
+    </div>
+
+    <div class="memory-tips">
+        <h2>Memory Tips (One-Line Each)</h2>
+        <ul>
+            <li><strong>Poynting → W (avg) → multiply by $r^2$ → U</strong></li>
+            <li><strong>Integrate U over $4\pi$ → $P_{rad}$</strong></li>
+            <li><strong>$D_0 = 4\pi U_{max}/P_{rad} = 4\pi/\Omega_A$</strong></li>
+            <li><strong>Gain = η·Directivity ; $A_e = \lambda^2 G/(4\pi)$</strong></li>
+            <li><strong>HPBW: find U = $U_{max}/2$ in that plane; FNBW: first U = 0</strong></li>
+        </ul>
+    </div>
+
+</body>
+</html>
